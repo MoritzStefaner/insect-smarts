@@ -75,8 +75,7 @@ public void mouseDragged() {
 // Boid class
 // Methods for Separation, Cohesion, Alignment added
 
-float MAX_FORCE = 1;
-
+float MAX_FORCE = 10;
 
 class Boid {
 
@@ -84,13 +83,13 @@ class Boid {
   PVector velocity;
   PVector acceleration;
   float r;
-  float MAX_SPEED = 2;  
+  float MAX_SPEED = 5;  
 
   Boid(float x, float y) {
     acceleration = new PVector(0,0);
     velocity = new PVector(random(-1,1),random(-1,1));
     location = new PVector(x,y);
-    MAX_SPEED = 2 + random(-.5f, .5f);
+    MAX_SPEED += random(-.5f, .5f);
   }
 
   public void run(ArrayList<Boid> boids) {
@@ -140,7 +139,7 @@ class Boid {
   public void render() {
 
     r = 5 * velocity.mag()/MAX_SPEED+1;
-    r = 2;
+    r = 3;
 
     // Draw a triangle rotated in the direction of velocity
     float theta = velocity.heading2D() + radians(90);

@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream; 
 import java.io.IOException; 
 
-public class boids extends PApplet {
+public class b_boids extends PApplet {
 
 
 
@@ -340,7 +340,7 @@ class Flock {
   }
 }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "boids" };
+    String[] appletArgs = new String[] { "b_boids" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {
