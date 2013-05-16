@@ -4,6 +4,7 @@ import processing.event.*;
 import processing.opengl.*; 
 
 import controlP5.*; 
+import eu.stefaner.insectsmarts.*; 
 
 import java.util.HashMap; 
 import java.util.ArrayList; 
@@ -32,9 +33,12 @@ public class a_ant_follow extends PApplet {
 Flock flock;
 ControlP5 cp5;
 
-int NUM_BOIDS = 100;
+int NUM_BOIDS = 300;
 
 public void setup() {
+  
+  ImageSaver.userName = "someone";
+
   size(1280,720, P2D);
   frameRate(30);
   colorMode(HSB, 1f);
@@ -65,6 +69,10 @@ public void draw() {
 // Add a new boid into the System
 public void mouseDragged() {
   // flock.addBoid(new Boid(mouseX,mouseY));
+}
+
+public void keyPressed(){
+  ImageSaver.saveAndPost(this);
 }
 
 
@@ -138,8 +146,8 @@ class Boid {
   
   public void render() {
 
-    r = 5 * velocity.mag()/MAX_SPEED+1;
-    r = 3;
+    // r = 5 * velocity.mag()/MAX_SPEED+1;
+    r = 2;
 
     // Draw a triangle rotated in the direction of velocity
     float theta = velocity.heading2D() + radians(90);
@@ -184,6 +192,7 @@ class Boid {
         sum.add(other.location); // Add location
         count++;
       }
+
     }
     if (count > 0) {
       sum.div(count);

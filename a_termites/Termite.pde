@@ -6,15 +6,15 @@ class Termite {
   Boolean carriesFood = false;
   Boolean action = false;
   ArrayList<PVector> history = new ArrayList<PVector>();
-  int maxHistoryLength = 50;
 
   Termite() {
-    location = new PVector((int)random(width),(int)random(height));
+    location = new PVector((int) random(width),(int) random(height));
     direction = pickRandomDirection();
   }
 
   PVector pickRandomDirection() {
     int r = (int) random(4);
+
     switch(r){
       case 0:
         return new PVector(1,0);
@@ -24,11 +24,11 @@ class Termite {
         return new PVector(0,-1);
     }
     return new PVector(-1,0);
+    
   }
 
   void run() {
     update();
-    // render();
   }
 
  
@@ -36,43 +36,26 @@ class Termite {
   void update() {
     PVector nextPos = new PVector (location.x, location.y);
     nextPos.add(direction);
-    /*
-    if (random(100)>33){
-      nextPos.x += 1;
-    }
-    if (random(100)>33){
-      nextPos.x -= 1;
-    }
-    if (random(100)>33){
-      nextPos.y -= 1;
-    }
-    if (random(100)>33){
-      nextPos.y += 1;
-    }
-    */
 
     nextPos.x = (nextPos.x + width) % width;
     nextPos.y = (nextPos.y + height) % height;
-    
-    // println(nextPos.x);
 
     color col = foodMap.get((int) nextPos.x, (int) nextPos.y);
 
     if(brightness(col) < 255){
-        action = true;
-
         if(carriesFood){
           // try to drop food
           carriesFood = !dropFood(location);
-          nextPos = location;
         } else {
           // pick up food
           carriesFood = pickUpFood(nextPos);
         }
+        action = true;
+        direction = pickRandomDirection();
     } else{
       action = false;
+      location = nextPos;  
     }
-    location = nextPos;
 
   }
 
@@ -84,25 +67,28 @@ class Termite {
   }
   
   Boolean dropFood(PVector location) {
-    foodMap.stroke(0);
-    foodMap.strokeWeight(1);
-    foodMap.point((int) location.x, (int) location.y);
-    return true;
+    color col = foodMap.get((int) location.x, (int) location.y);
+    if(brightness(col) < 255){
+      // there is food already here!
+      return false; 
+    } else {
+      foodMap.stroke(0);
+      foodMap.strokeWeight(1);
+      foodMap.point((int) location.x, (int) location.y);
+      return true;  
+    }
+    
   }
 
-  void render() {
-    noSmooth();
+  void draw() {
+    strokeWeight(1); 
     if(action){
-      stroke(255,0,0);  
-      strokeWeight(1); 
+      stroke(255,128,0);  
     } else {
-
       if(carriesFood){
-        stroke(0); 
-        strokeWeight(1);  
+        stroke(100); 
       } else {
-        stroke(128); 
-        strokeWeight(1);  
+        stroke(200); 
       } 
     }
     point(location.x, location.y);

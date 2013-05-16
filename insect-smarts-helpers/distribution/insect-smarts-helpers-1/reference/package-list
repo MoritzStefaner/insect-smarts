@@ -1,0 +1,14 @@
+com.tumblr.jumblr
+com.tumblr.jumblr.exceptions
+com.tumblr.jumblr.request
+com.tumblr.jumblr.responses
+com.tumblr.jumblr.types
+org.scribe.builder
+org.scribe.builder.api
+org.scribe.exceptions
+org.scribe.extractors
+org.scribe.model
+org.scribe.oauth
+org.scribe.services
+org.scribe.utils
+template.library

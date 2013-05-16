@@ -68,8 +68,8 @@ class Boid {
   
   void render() {
 
-    r = 5 * velocity.mag()/MAX_SPEED+1;
-    r = 3;
+    // r = 5 * velocity.mag()/MAX_SPEED+1;
+    r = 2;
 
     // Draw a triangle rotated in the direction of velocity
     float theta = velocity.heading2D() + radians(90);
@@ -114,6 +114,7 @@ class Boid {
         sum.add(other.location); // Add location
         count++;
       }
+
     }
     if (count > 0) {
       sum.div(count);

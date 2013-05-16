@@ -1,5 +1,5 @@
 import controlP5.*;
-
+import eu.stefaner.insectsmarts.*;
 
 // The Nature of Code
 // Daniel Shiffman
@@ -14,9 +14,12 @@ import controlP5.*;
 Flock flock;
 ControlP5 cp5;
 
-int NUM_BOIDS = 100;
+int NUM_BOIDS = 300;
 
 void setup() {
+  
+  ImageSaver.userName = "someone";
+
   size(1280,720, P2D);
   frameRate(30);
   colorMode(HSB, 1f);
@@ -47,6 +50,10 @@ void draw() {
 // Add a new boid into the System
 void mouseDragged() {
   // flock.addBoid(new Boid(mouseX,mouseY));
+}
+
+void keyPressed(){
+  ImageSaver.saveAndPost(this);
 }
 
 

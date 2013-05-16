@@ -4,6 +4,7 @@ import processing.event.*;
 import processing.opengl.*; 
 
 import controlP5.*; 
+import eu.stefaner.insectsmarts.*; 
 
 import java.util.HashMap; 
 import java.util.ArrayList; 
@@ -43,6 +44,7 @@ float COHESION   = .5f;
 int NUM_BOIDS = 100;
 
 public void setup() {
+  ImageSaver.userName = "someone";
   size(1280,720, P2D);
   frameRate(30);
   colorMode(HSB, 1f);
@@ -59,7 +61,8 @@ public void initControllers(){
   int textColWidth = 60;
   int x = width - colWidth - 10;
 
-  cp5.addButton("save pdf",1,x,10,colWidth,20);
+  cp5.addButton("saveAndPost",1,x,10,colWidth,20);
+
   cp5.addTextlabel("label").setText("MAX FORCE").setPosition(x,46).setColor(color(0,0,.3f));
   cp5.addSlider("MAX_FORCE",0,1,MAX_FORCE,x+textColWidth,40,colWidth-textColWidth,20);
 
@@ -99,6 +102,10 @@ public void draw() {
 // Add a new boid into the System
 public void mouseDragged() {
   // flock.addBoid(new Boid(mouseX,mouseY));
+}
+
+public void saveAndPost(){
+  ImageSaver.saveAndPost(this);
 }
 
 
