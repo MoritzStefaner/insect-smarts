@@ -67,24 +67,11 @@ class Boid {
   }
   
   void render() {
-
-    // r = 5 * velocity.mag()/MAX_SPEED+1;
-    r = 2;
-
-    // Draw a triangle rotated in the direction of velocity
-    float theta = velocity.heading2D() + radians(90);
-    fill(0, 120);
-    noStroke();
     pushMatrix();
-    translate(location.x,location.y);
-    rotate(theta);
-    translate(0,-3*r);
-    beginShape(TRIANGLES);
-    vertex(0, -r*2);
-    vertex(-r, r*2);
-    vertex(r, r*2);
-    endShape();
-    popMatrix();    
+    translate(location.x, location.y);
+    rotate(velocity.heading2D() + 45);
+    image(antImage, 0,0);
+    popMatrix();
   }
 
   // Wraparound
@@ -116,6 +103,7 @@ class Boid {
       }
 
     }
+    
     if (count > 0) {
       sum.div(count);
       return seek(sum);  // Steer towards the location

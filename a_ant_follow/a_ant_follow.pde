@@ -15,12 +15,17 @@ Flock flock;
 ControlP5 cp5;
 
 int NUM_BOIDS = 300;
+PImage antImage;
 
 void setup() {
   
   ImageSaver.userName = "someone";
+  antImage = loadImage("ant.png");
 
-  size(1280,720, P2D);
+  imageMode(CENTER);
+  blendMode(MULTIPLY);
+
+  size(1024,720, P2D);
   frameRate(30);
   colorMode(HSB, 1f);
   smooth();
