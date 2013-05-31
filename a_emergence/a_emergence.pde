@@ -1,12 +1,15 @@
+/* 
+  
+  I-N°S.E-C:T 
+  S.M-A°R:T.S
 
-// a_emergence
+  Moritz Stefaner (moritz@stefaner.eu), May 2013
+  https://github.com/MoritzStefaner/insect-smarts
 
-// author: Moritz Stefaner
-// for insect smarts workshop
-// May 2013
+  based on code from http://natureofcode.com
 
-// see
-
+ */
+ 
 import controlP5.*;
 import eu.stefaner.insectsmarts.*;
 ControlP5 cp5;
@@ -16,6 +19,8 @@ float y = 0;
 
 PGraphics result;
 PVector wayHome;
+
+// ------------------------------------------------------
 
 void setup(){
 	
@@ -37,6 +42,8 @@ void setup(){
 
 	chooseNewPosition();
 }
+
+// ------------------------------------------------------
 
 void draw(){
 	
@@ -92,16 +99,21 @@ void chooseNewPosition(){
 	wayHome.setMag(6);	
 }
 
+// ------------------------------------------------------
+
+// set up buttons for parameter controls
 void initControls(){
 	cp5 = new ControlP5(this);
 	cp5.addButton("save",1,10,10,30,20);
 	cp5.addButton("post",1,10,35,30,20);
 }
 
+// save image
 void save(){
   ImageSaver.save(this);
 }
 
+// save image and post to http://insect-smarts.tumblr.com
 void post(){
   ImageSaver.saveAndPost(this);
 }

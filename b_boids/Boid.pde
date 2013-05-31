@@ -49,6 +49,13 @@ class Boid {
     applyForce(sep);
     applyForce(ali);
     applyForce(coh);
+
+    avoidMouse();
+  }
+
+  void avoidMouse(){
+    PVector wayToMouse = PVector.sub(location,new PVector(mouseX, mouseY));
+        
   }
 
   // Method to update location
@@ -161,12 +168,11 @@ class Boid {
   // Alignment
   // For every nearby boid in the system, calculate the average velocity
   PVector align (ArrayList<Boid> boids) {
-    float neighbordist = 50;
     PVector sum = new PVector(0,0);
     int count = 0;
     for (Boid other : boids) {
       float d = PVector.dist(location,other.location);
-      if ((d > 0) && (d < neighbordist)) {
+      if ((d > 0) && (d < NEIGHBOR_DIST)) {
         sum.add(other.velocity);
         count++;
       }
@@ -186,12 +192,12 @@ class Boid {
   // Cohesion
   // For the average location (i.e. center) of all nearby boids, calculate steering vector towards that location
   PVector cohesion (ArrayList<Boid> boids) {
-    float neighbordist = 50;
+
     PVector sum = new PVector(0,0);   // Start with empty vector to accumulate all locations
     int count = 0;
     for (Boid other : boids) {
       float d = PVector.dist(location,other.location);
-      if ((d > 0) && (d < neighbordist)) {
+      if ((d > 0) && (d < NEIGHBOR_DIST)) {
         sum.add(other.location); // Add location
         count++;
       }

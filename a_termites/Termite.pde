@@ -13,6 +13,8 @@ class Termite {
   }
 
   PVector pickRandomDirection() {
+    return new PVector(random(-1,1),random(-1,1));
+    /*
     int r = (int) random(4);
 
     switch(r){
@@ -24,7 +26,7 @@ class Termite {
         return new PVector(0,-1);
     }
     return new PVector(-1,0);
-    
+    */
   }
 
   void run() {

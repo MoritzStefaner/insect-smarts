@@ -1,6 +1,16 @@
-import eu.stefaner.insectsmarts.*;
+/* 
+  
+  I-N°S.E-C:T 
+  S.M-A°R:T.S
 
-// Termites clean up my living roon
+  Moritz Stefaner (moritz@stefaner.eu), May 2013
+  https://github.com/MoritzStefaner/insect-smarts
+
+ */
+
+import controlP5.*;
+import eu.stefaner.insectsmarts.*;
+ControlP5 cp5;
 
 ArrayList<Termite> termites;
 PGraphics foodMap;
@@ -8,13 +18,12 @@ PImage foodMapImage;
 
 int MAP_WIDTH = 100;
 int MAP_HEIGHT = 100;
-int SCALE = 1;
-
-
+int SCALE = 3;
 
 void setup() {
   ImageSaver.userName = "someone";
-
+  initControls();
+  
   size(MAP_WIDTH*SCALE,MAP_HEIGHT*SCALE);
 
   frameRate(50);
@@ -54,6 +63,7 @@ void setup() {
 void draw() {
   
   background(255);
+  pushMatrix();
   scale(SCALE);
   noSmooth();
   
@@ -72,10 +82,25 @@ void draw() {
   for (Termite t : termites) {
       t.draw(); 
   }
+  popMatrix();
 }
 
-void keyPressed(){
+// ------------------------------------------------------
+
+// set up buttons for parameter controls
+void initControls(){
+  cp5 = new ControlP5(this);
+  cp5.addButton("save",1,MAP_WIDTH*SCALE - 30,10,30,20);
+  cp5.addButton("post",1,MAP_WIDTH*SCALE - 30,35,30,20);
+}
+
+// save image
+void save(){
+  ImageSaver.save(this);
+}
+
+// save image and post to http://insect-smarts.tumblr.com
+void post(){
   ImageSaver.saveAndPost(this);
 }
-
 
