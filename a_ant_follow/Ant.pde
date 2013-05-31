@@ -2,12 +2,12 @@
 // Daniel Shiffman
 // http://natureofcode.com
 
-// Boid class
+// Ant class
 // Methods for Separation, Cohesion, Alignment added
 
 float MAX_FORCE = 10;
 
-class Boid {
+class Ant {
 
   PVector location;
   PVector velocity;
@@ -15,15 +15,15 @@ class Boid {
   float r;
   float MAX_SPEED = 5;  
 
-  Boid(float x, float y) {
+  Ant(float x, float y) {
     acceleration = new PVector(0,0);
     velocity = new PVector(random(-1,1),random(-1,1));
     location = new PVector(x,y);
     MAX_SPEED += random(-.5, .5);
   }
 
-  void run(ArrayList<Boid> boids) {
-    flock(boids);
+  void run(ArrayList<Ant> ants) {
+    flock(ants);
     update();
     borders();
     render();
@@ -37,8 +37,8 @@ class Boid {
   }
 
   // We accumulate a new acceleration each time based on three rules
-  void flock(ArrayList<Boid> boids) {
-    PVector attraction = followNeighbors(boids);   // Separation
+  void flock(ArrayList<Ant> ants) {
+    PVector attraction = followNeighbors(ants);   // Separation
     applyForce(attraction);
   }
 
@@ -83,12 +83,12 @@ class Boid {
   }
 
   // Cohesion
-  // For the average location (i.e. center) of all nearby boids, calculate steering vector towards that location
-  PVector followNeighbors (ArrayList<Boid> boids) {
+  // For the average location (i.e. center) of all nearby ants, calculate steering vector towards that location
+  PVector followNeighbors (ArrayList<Ant> ants) {
     float neighbordist = 50;
     PVector sum = new PVector(0,0);   // Start with empty vector to accumulate all locations
     int count = 0;
-    for (Boid other : boids) {
+    for (Ant other : ants) {
 
       float d = PVector.dist(location, other.location);
       PVector direction = PVector.sub(other.location, location);

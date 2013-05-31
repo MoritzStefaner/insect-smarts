@@ -1,15 +1,17 @@
+/* 
+  
+  I-N°S.E-C:T 
+  S.M-A°R:T.S
+
+  Moritz Stefaner (moritz@stefaner.eu), May 2013
+  https://github.com/MoritzStefaner/insect-smarts
+
+  based on code from http://natureofcode.com
+
+ */
+
 import controlP5.*;
 import eu.stefaner.insectsmarts.*;
-
-// The Nature of Code
-// Daniel Shiffman
-// http://natureofcode.com
-
-// Demonstration of Craig Reynolds' "Flocking" behavior
-// See: http://www.red3d.com/cwr/
-// Rules: Cohesion, Separation, Alignment
-
-// Click mouse to add boids into the system
 
 Flock flock;
 ControlP5 cp5;
@@ -19,7 +21,10 @@ PImage antImage;
 
 void setup() {
   
+  
   ImageSaver.userName = "someone";
+  initControls();
+
   antImage = loadImage("ant.png");
 
   imageMode(CENTER);
@@ -54,11 +59,27 @@ void draw() {
 
 // Add a new boid into the System
 void mouseDragged() {
-  // flock.addBoid(new Boid(mouseX,mouseY));
+  flock.addAnt(new Ant(mouseX,mouseY));
 }
 
-void keyPressed(){
+// ------------------------------------------------------
+
+// set up buttons for parameter controls
+void initControls(){
+  cp5 = new ControlP5(this);
+  cp5.addButton("save",1,10,10,30,20);
+  cp5.addButton("post",1,10,35,30,20);
+}
+
+// save image
+void save(){
+  ImageSaver.save(this);
+}
+
+// save image and post to http://insect-smarts.tumblr.com
+void post(){
   ImageSaver.saveAndPost(this);
 }
+
 
 

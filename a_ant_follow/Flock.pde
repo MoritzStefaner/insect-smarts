@@ -5,26 +5,28 @@
 // Flock class
 // Does very little, simply manages the ArrayList of all the boids
 
+// edit mo: change to "Ants"
+
 class Flock {
-  ArrayList<Boid> boids; // An ArrayList for all the boids
+  ArrayList<Ant> ants; // An ArrayList for all the ants
   
   Flock() {
-    boids = new ArrayList<Boid>(); // Initialize the ArrayList
+    ants = new ArrayList<Ant>(); // Initialize the ArrayList
   }
 
   void run() {
-    while (boids.size()<NUM_BOIDS)
-      addBoid(new Boid(random(width),random(height)));
+    while (ants.size()<NUM_BOIDS)
+      addAnt(new Ant(random(width),random(height)));
 
-    while (boids.size()>NUM_BOIDS)
-      boids.remove(0);
+    while (ants.size()>NUM_BOIDS)
+      ants.remove(0);
 
-    for (Boid b : boids) {
-      b.run(boids);  // Passing the entire list of boids to each boid individually
+    for (Ant b : ants) {
+      b.run(ants);  // Passing the entire list of ants to each boid individually
     }
   }
 
-  void addBoid(Boid b) {
-    boids.add(b);
+  void addAnt(Ant b) {
+    ants.add(b);
   }
 }
