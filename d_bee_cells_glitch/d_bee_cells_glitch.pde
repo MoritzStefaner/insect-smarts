@@ -2,8 +2,8 @@ import traer.physics.*;
 
 ParticleSystem physics;
 Particle centerParticle;
-int NUM_RINGS = 20;
-int NUM_SEGMENTS = 20;
+int NUM_RINGS = 10;
+int NUM_SEGMENTS = 12;
 ArrayList centers = new ArrayList();
 
 void setup()
@@ -13,7 +13,7 @@ void setup()
   fill( 0 );
   ellipseMode( CENTER );
 
-  physics = new ParticleSystem( 0, 0.001 );
+  physics = new ParticleSystem( 0, 0.1 );
   
   for (int i=0; i<NUM_RINGS; i++) {
     makeRing();
@@ -27,14 +27,21 @@ void setup()
       p1 = (Particle) centers.get(i);
       p2 = (Particle) centers.get(j);
       // a, b, strength, minimumDistance
-      physics.makeAttraction(p1, p2, 20, 2);
+      physics.makeAttraction(p1, p2, 30, 10);
+    }
+  }
+  for (int i=0; i<physics.numberOfParticles(); i++) {
+    for (int j=i+1; j<physics.numberOfParticles(); j++) {
+      p1 = physics.getParticle(i);
+      p2 = physics.getParticle(j);
+      // a, b, strength, minimumDistance
+      physics.makeAttraction(p1, p2, -10, 10);
     }
   }
 }
 
 void mousePressed() {
 }
-
 void mouseDragged()
 {
 }
@@ -45,7 +52,7 @@ void mouseReleased()
 
 void makeRing()
 {
-  Particle center  = physics.makeParticle(20.0, random(width), random(height), 0);
+  Particle center  = physics.makeParticle(100.0, random(width), random(height), 0);
   centers.add(center);
   
   Particle firstParticle = null;
@@ -55,7 +62,7 @@ void makeRing()
   for (int i=0; i<NUM_SEGMENTS; i++) {
     
     // mass, x, y, z
-    p = physics.makeParticle(1.0, random(width), random(height), 0);
+    p = physics.makeParticle(2.0, random(width), random(height), 0);
     if (i==0) {
       firstParticle = p;
     } 
