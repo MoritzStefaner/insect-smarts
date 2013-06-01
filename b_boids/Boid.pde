@@ -3,17 +3,19 @@
 // http://natureofcode.com
 
 // Boid class
-// Methods for Separation, Cohesion, Alignment added
+
+// modified and extended by moritz@stefaner.eu for insect smarts workshop
 
 class Boid {
 
   PVector location;
   PVector velocity;
   PVector acceleration;
+
+  // size (radius)
   float r;
   
   ArrayList<PVector> history = new ArrayList<PVector>();
-  
 
   Boid(float x, float y) {
     acceleration = new PVector(0,0);
