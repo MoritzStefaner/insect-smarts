@@ -1,39 +1,53 @@
-// The Nature of Code
-// Daniel Shiffman
-// http://natureofcode.com
+/* 
+  
+  I-N°S.E-C:T 
+  S.M-A°R:T.S
 
-// Demonstration of Craig Reynolds' "Flocking" behavior
-// See: http://www.red3d.com/cwr/
-// Rules: Cohesion, Separation, Alignment
+  Moritz Stefaner (moritz@stefaner.eu), May 2013
+  https://github.com/MoritzStefaner/insect-smarts
 
-// Click mouse to add boids into the system
+  based on http://natureofcode.com
+
+ */
+
+import eu.stefaner.insectsmarts.*;
+import controlP5.*;
+ControlP5 cp5;
 
 ArrayList<Ant> ants;
 PGraphics foodMap;
 PGraphics pheroMap;
-PImage foodMapImage;
+PImage pheromapImage;
 
 void setup() {
   size(700,700, P2D);
-  frameRate(40);
+  frameRate(30);
+
+  ImageSaver.userName = "someone";
+  initControls();
+
+  // image to draw pheromone trails with
+  pheromapImage = loadImage("texture.png");
   
+  // create extra graphics object to store pheromone trails
   pheroMap = createGraphics(width, height);
+  pheroMap.imageMode(CENTER);
   pheroMap.beginDraw();
   pheroMap.background(255);
   pheroMap.endDraw();
 
+  // create extra graphics object to store food
   foodMap = createGraphics(width, height);
   foodMap.beginDraw();
-  foodMap.background(255);
-  foodMap.noFill();
+  foodMap.background(255);  
+  foodMap.smooth(4);
 
-  foodMap.strokeWeight(8);
-  
-  
-  for(int i=0; i< width; i++){
-    for(int j=0; j<height; j++){
-      if(noise(i*.01,j*.01)>.65){
-        foodMap.stroke(0, (int)(noise(i*.01,j*.01)*60), (int)(noise(i*.01,j*.01)*30));
+  float foodProbability = .35;
+  for(int i=0; i < width; i++){
+    for(int j=0; j < height; j++){
+      float randomValue = noise(i*.01, j*.01);
+      if(randomValue < foodProbability){
+        foodMap.stroke(5 * int(randomValue * 10));
         foodMap.point(i,j);
       }
   }  
@@ -43,27 +57,36 @@ void setup() {
    ants = new ArrayList<Ant>();
   // Add an initial set of ants into the system
   for (int i = 0; i < width*height/500; i++) {
-    //for (int i = 0; i < 10; i++) {
     Ant t = new Ant();
     ants.add(t);
   }
 }
 
+// draw a trail
+void mousePressed(){
+  pheroMap.tint(255);
+  pheroMap.image(pheromapImage,mouseX, mouseY);
+}
+
+// draw a trail
+void mouseDragged(){
+  pheroMap.tint(255);
+  pheroMap.image(pheromapImage,mouseX, mouseY);
+}
+
 void draw() {
-
-
-  background(255, 250, 220);
+  blendMode(NORMAL);
+  background(255, 240, 220);
   
+  blendMode(MULTIPLY);
   image(foodMap, 0, 0);
 
-  tint(255, 200);
+  //tint(255, 0, 100, 10);
   image(pheroMap, 0, 0);
   
-
   pheroMap.beginDraw();
+
   // fade out pheroMap
-  pheroMap.noStroke();
-  pheroMap.noSmooth();
   pheroMap.fill(255, 255, 255, 1);
   pheroMap.rect(0,0,width,height);
 
@@ -72,7 +95,6 @@ void draw() {
   foodMap.noSmooth();
   foodMap.strokeWeight(1);
   
-  int numFood = 0;
   for (Ant t : ants) {
       t.run(); 
   }
@@ -81,10 +103,28 @@ void draw() {
   pheroMap.endDraw();
 
   stroke(0);
-  strokeWeight(20);
+  strokeWeight(10);
   point(width/2, height/2);
-  
- // println(numFood);
+ 
+}
+
+// -------------------------------------------------------------
+
+// set up buttons for parameter controls
+void initControls(){
+  cp5 = new ControlP5(this);
+  cp5.addButton("save", 1, width - 35, 10, 30, 20);
+  cp5.addButton("post", 1, height - 35, 35, 30, 20);
+}
+
+// save image
+void save(){
+  ImageSaver.save(this);
+}
+
+// save image and post to http://insect-smarts.tumblr.com
+void post(){
+  ImageSaver.saveAndPost(this);
 }
 
 
