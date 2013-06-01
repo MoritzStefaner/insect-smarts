@@ -18,7 +18,7 @@ ControlP5 cp5;
 
 ParticleSystem physics;
 
-int NUM_PARTICLES = 400;
+int NUM_PARTICLES = 500;
 PImage blurredCircle;
 
 Particle mouseParticle;
@@ -29,7 +29,7 @@ void setup(){
   size(600, 600, P2D);
   initControls();
 
-  blurredCircle = loadImage("texture_dark.png");
+  blurredCircle = loadImage("texture.png");
   
   physics = new ParticleSystem( 0, 0.2);
   
@@ -61,9 +61,9 @@ void draw(){
   physics.tick();
   imageMode( CENTER );
 
-  blendMode(DARKEST);
+  blendMode(LIGHTEST);
 
-  background(240, 240, 220);
+  background(0);
   
   if(counter<200) counter+=.1;
 
