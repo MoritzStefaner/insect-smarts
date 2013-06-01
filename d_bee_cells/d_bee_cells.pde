@@ -23,18 +23,14 @@ PImage blurredCircle;
 
 Particle mouseParticle;
 
-void setup()
-{
+void setup(){
   ImageSaver.userName = "someone";
-  initControls();
-
-  blurredCircle = loadImage("texture.png");
 
   size(600, 600, P2D);
-  smooth();
-  fill( 0 );
-  imageMode( CENTER );
+  initControls();
 
+  blurredCircle = loadImage("texture_dark.png");
+  
   physics = new ParticleSystem( 0, 0.2);
   
   for (int i=0; i<NUM_PARTICLES; i++) {
@@ -53,16 +49,6 @@ void setup()
   }
 }
 
-void mousePressed() {
-
-}
-
-void mouseDragged() {
-}
-
-void mouseReleased() {
-}
-
 
 void makeSpring(Particle a, Particle b) {
   // strength, damping, restLength
@@ -71,14 +57,13 @@ void makeSpring(Particle a, Particle b) {
 
 float counter=0;
 
-void draw()
-{
+void draw(){
   physics.tick();
-  blendMode(LIGHTEST);
+  imageMode( CENTER );
 
-  background( 0 );
-  fill(200);
-  stroke(200);
+  blendMode(DARKEST);
+
+  background(240, 240, 220);
   
   if(counter<200) counter+=.1;
 
@@ -101,11 +86,12 @@ void draw()
 
   for (int i=0; i<physics.numberOfParticles(); i++) {
     p = physics.getParticle(i);
-    //ellipse( p.position().x(), p.position().y(), 5, 5 );
     image(blurredCircle, p.position().x(), p.position().y());
   }
 
 }
+
+// --------------------------------------------------------------
 
 void initControls(){
   cp5 = new ControlP5(this);
