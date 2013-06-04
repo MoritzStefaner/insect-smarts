@@ -64,24 +64,31 @@ void initControls() {
   cp5 = new ControlP5(this);
 
   int colWidth = 200;
-  int textColWidth = 90;
+  int textColWidth = 50;
   int counter = 0;
   int rowHeight = 30;
   int x = width - colWidth - 10;
 
-  cp5.addButton("save", 1, x + textColWidth, 10, (colWidth-textColWidth)/2-5, 20);
-  cp5.addButton("post", 1, x + textColWidth + (colWidth-textColWidth)/2 + 5, 10, (colWidth-textColWidth)/2-5, 20);
+  cp5.addButton("save", 1, x, 10, (colWidth-textColWidth)/2-5, 20);
+  cp5.addButton("post", 1, x + (colWidth-textColWidth)/2 + 5, 10, (colWidth-textColWidth)/2-5, 20);
 
   counter++;
-  cp5.addTextlabel("label" + counter).setText("DECAY").setPosition(x, counter*rowHeight + 16).setColor(color(0, 0, .3));
-  cp5.addSlider("DECAY", 0, .1, DECAY, x+textColWidth, counter*rowHeight + 10, colWidth-textColWidth, 20);
+  cp5.addSlider("DECAY", 0, .1, DECAY, x, counter*rowHeight + 10, colWidth-textColWidth, 20);
 
   counter++;
-  cp5.addTextlabel("label" + counter).setText("RANDOM_FIRE").setPosition(x, counter*rowHeight + 16).setColor(color(0, 0, .3));
-  cp5.addSlider("RANDOM_FIRE", 0, 1, RANDOM_FIRE, x+textColWidth, counter*rowHeight + 10, colWidth-textColWidth, 20);
+  cp5.addSlider("RANDOM_FIRE", 0, 1, RANDOM_FIRE, x, counter*rowHeight + 10, colWidth-textColWidth, 20);
 
   counter++;
-  cp5.addTextlabel("label" + counter).setText("AXON_SPEED").setPosition(x, counter*rowHeight + 16).setColor(color(0, 0, .3));
-  cp5.addSlider("AXON_SPEED", .0001, .001, AXON_SPEED, x+textColWidth, counter*rowHeight + 10, colWidth-textColWidth, 20);
+  cp5.addSlider("AXON_SPEED", .0001, .001, AXON_SPEED, x, counter*rowHeight + 10, colWidth-textColWidth, 20);
+}
 
+
+// save image
+void save() {
+  ImageSaver.save(this);
+}
+
+// save image and post to http://insect-smarts.tumblr.com
+void post() {
+  ImageSaver.saveAndPost(this);
 }

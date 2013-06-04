@@ -66,45 +66,36 @@ void initControls() {
   cp5 = new ControlP5(this);
 
   int colWidth = 140;
-  int textColWidth = 60;
+  int textColWidth = 75;
   int x = width - colWidth - 10;
   int counter = 0;
   int rowHeight = 30;
-
 
   cp5.addButton("save", 1, x, 10, colWidth/2-5, 20);
   cp5.addButton("post", 1, x + colWidth/2 + 5, 10, colWidth/2-5, 20);
 
   counter++;
-  cp5.addTextlabel("label").setText("MAX FORCE").setPosition(x, counter*rowHeight + 16).setColor(color(0, 0, .3));
-  cp5.addSlider("MAX_FORCE", 0, 1, MAX_FORCE, x+textColWidth, counter*rowHeight + 10, colWidth-textColWidth, 20);
+  cp5.addSlider("MAX_FORCE", 0, 1, MAX_FORCE, x, counter*rowHeight + 10, colWidth-textColWidth, 20).setColorLabel(color(.2));
 
   counter++;
-  cp5.addTextlabel("label" + counter).setText("MAX SPEED").setPosition(x, counter*rowHeight + 16).setColor(color(0, 0, .3));
-  cp5.addSlider("MAX_SPEED", 1, 10, MAX_SPEED, x+textColWidth, counter*rowHeight + 10, colWidth-textColWidth, 20);
+  cp5.addSlider("MAX_SPEED", 1, 10, MAX_SPEED, x, counter*rowHeight + 10, colWidth-textColWidth, 20).setColorLabel(color(.2));
 
   counter++;
-  cp5.addTextlabel("label" + counter).setText("TRAIL LENGTH").setPosition(x, 106).setColor(color(0, 0, .3));
-  cp5.addSlider("TRAIL_LENGTH", 0, 400, TRAIL_LENGTH, x+textColWidth, 100, colWidth-textColWidth, 20);
+  cp5.addSlider("TRAIL_LENGTH", 0, 400, TRAIL_LENGTH, x, 100, colWidth-textColWidth, 20).setColorLabel(color(.2));
 
   counter++;
-  cp5.addTextlabel("label" + counter).setText("SEPARATION").setPosition(x, counter*rowHeight + 16).setColor(color(0, 0, .3));
-  cp5.addSlider("SEPARATION", 0, 1, SEPARATION, x+textColWidth, counter*rowHeight + 10, colWidth-textColWidth, 20);
+  cp5.addSlider("SEPARATION", 0, 1, SEPARATION, x, counter*rowHeight + 10, colWidth-textColWidth, 20).setColorLabel(color(.2));
 
   counter++;
-  cp5.addTextlabel("label" + counter).setText("COHESION").setPosition(x, counter*rowHeight + 16).setColor(color(0, 0, .3));
-  cp5.addSlider("COHESION", 0, 1, COHESION, x+textColWidth, counter*rowHeight + 10, colWidth-textColWidth, 20);
+  cp5.addSlider("COHESION", 0, 1, COHESION, x, counter*rowHeight + 10, colWidth-textColWidth, 20).setColorLabel(color(.2));
 
   counter++;
-  cp5.addTextlabel("label" + counter).setText("ALIGNMENT").setPosition(x, counter*rowHeight + 16).setColor(color(0, 0, .3));
-  cp5.addSlider("ALIGNMENT", 0, 1, ALIGNMENT, x+textColWidth, counter*rowHeight + 10, colWidth-textColWidth, 20);
+  cp5.addSlider("ALIGNMENT", 0, 1, ALIGNMENT, x, counter*rowHeight + 10, colWidth-textColWidth, 20).setColorLabel(color(.2));
 
   counter++;
-  cp5.addTextlabel("label" + counter).setText("NUM BOIDS").setPosition(x, counter*rowHeight + 16).setColor(color(0, 0, .3));
-  cp5.addSlider("NUM_BOIDS", 1, 200, NUM_BOIDS, x+textColWidth, counter*rowHeight + 10, colWidth-textColWidth, 20);
+  cp5.addSlider("NUM_BOIDS", 1, 200, NUM_BOIDS, x, counter*rowHeight + 10, colWidth-textColWidth, 20).setColorLabel(color(.2));
 
   counter++;
-  cp5.addTextlabel("label" + counter).setText("NEIGHBOR_DIST").setPosition(x, counter*rowHeight + 16).setColor(color(0, 0, .3));
-  cp5.addSlider("NEIGHBOR_DIST", 10, 100, NEIGHBOR_DIST, x+textColWidth, counter*rowHeight + 10, colWidth-textColWidth, 20);
+  cp5.addSlider("NEIGHBOR_DIST", 10, 100, NEIGHBOR_DIST, x, counter*rowHeight + 10, colWidth-textColWidth, 20).setColorLabel(color(.2));
 }
 
