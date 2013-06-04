@@ -13,61 +13,84 @@
 import controlP5.*;
 import eu.stefaner.insectsmarts.*;
 
-Flock flock;
 ControlP5 cp5;
 
-int NUM_BOIDS = 300;
+int NUM_ANTS = 250;
+int NEIGHBOR_DIST = 0;
+
 PImage antImage;
+ArrayList<Ant> ants = new ArrayList<Ant>(); // An ArrayList for all the ants
 
 void setup() {
-
-
   ImageSaver.userName = "someone";
+
+  size(1024, 720, P2D);
+  frameRate(20);
+  colorMode(HSB, 1f);
+  smooth();
   initControls();
 
   antImage = loadImage("ant.png");
-
   imageMode(CENTER);
-  blendMode(MULTIPLY);
-
-  size(1024, 720, P2D);
-  frameRate(30);
-  colorMode(HSB, 1f);
-  smooth();
-
-  initControllers();
-  initSimulation();
-}
-
-void initControllers() {
-}
-
-void initSimulation() {
-  flock = new Flock();
 }
 
 void draw() {
+  // clear screen
+  // background(.2, .1, .95);
+  
+  // OR: 
+  fill(.2, .1, .95, .01);
+  rect(0,0,width, height);
 
-  background(.2, .1, .95, .5);
-  flock.run();
+  while (ants.size()<NUM_ANTS){
+    ants.add(new Ant(random(width),random(height)));
+  }
 
-  // Instructions
-  fill(0);
-  //text("Drag the mouse to generate new boids.",10,height-16);
+  while (ants.size()>NUM_ANTS){
+    ants.remove(0);
+  } 
+
+  for (Ant b : ants) {
+    b.run(ants);  // Passing the entire list of ants to each boid individually
+  }
 }
 
 // Add a new boid into the System
 void mouseDragged() {
-  flock.addAnt(new Ant(mouseX, mouseY));
+  ants.add(new Ant(mouseX, mouseY));
 }
+
 
 // ------------------------------------------------------
 
 // set up buttons for parameter controls
 void initControls() {
   cp5 = new ControlP5(this);
-  cp5.addButton("save", 1, 10, 10, 30, 20);
-  cp5.addButton("post", 1, 10, 35, 30, 20);
+
+  int colWidth = 200;
+  int textColWidth = 90;
+  int counter = 0;
+  int rowHeight = 30;
+  int x = width - colWidth - 10;
+
+  cp5.addButton("save", 1, x + textColWidth, 10, (colWidth-textColWidth)/2-5, 20);
+  cp5.addButton("post", 1, x + textColWidth + (colWidth-textColWidth)/2 + 5, 10, (colWidth-textColWidth)/2-5, 20);
+
+  counter++;
+  cp5.addTextlabel("label" + counter).setText("NEIGHBOR_DIST").setPosition(x, counter*rowHeight + 16).setColor(color(0, 0, .3));
+  cp5.addSlider("NEIGHBOR_DIST", 0, 100, NEIGHBOR_DIST, x+textColWidth, counter*rowHeight + 10, colWidth-textColWidth, 20);
+
+  counter++;
+  cp5.addTextlabel("label" + counter).setText("NUM_ANTS").setPosition(x, counter*rowHeight + 16).setColor(color(0, 0, .3));
+  cp5.addSlider("NUM_ANTS", 10, 400, NUM_ANTS, x+textColWidth, counter*rowHeight + 10, colWidth-textColWidth, 20);
+
+  counter++;
+  cp5.addTextlabel("label" + counter).setText("MAX_FORCE").setPosition(x, counter*rowHeight + 16).setColor(color(0, 0, .3));
+  cp5.addSlider("MAX_FORCE", 0, 20, MAX_FORCE, x+textColWidth, counter*rowHeight + 10, colWidth-textColWidth, 20);
+
+  counter++;
+  cp5.addTextlabel("label" + counter).setText("LOOK_ANGLE").setPosition(x, counter*rowHeight + 16).setColor(color(0, 0, .3));
+  cp5.addSlider("LOOK_ANGLE", 0, 1, LOOK_ANGLE, x+textColWidth, counter*rowHeight + 10, colWidth-textColWidth, 20);
 }
 
 // save image
@@ -79,4 +102,3 @@ void save() {
 void post() {
   ImageSaver.saveAndPost(this);
 }
-
