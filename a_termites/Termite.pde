@@ -2,93 +2,87 @@
 class Termite {
 
   PVector location;
-  PVector direction;
+  PVector velocity;
   Boolean carriesFood = false;
   Boolean action = false;
-  ArrayList<PVector> history = new ArrayList<PVector>();
 
   Termite() {
-    location = new PVector((int) random(width),(int) random(height));
-    direction = pickRandomDirection();
+    location = new PVector((int) random(MAP_WIDTH),(int) random(MAP_HEIGHT));
+    velocity = pickRandomVelocity();
   }
 
-  PVector pickRandomDirection() {
-    return new PVector(random(-1,1),random(-1,1));
-    /*
-    int r = (int) random(4);
-
-    switch(r){
-      case 0:
-        return new PVector(1,0);
-      case 1:
-        return new PVector(0,1);
-      case 2:
-        return new PVector(0,-1);
-    }
-    return new PVector(-1,0);
-    */
+  PVector pickRandomVelocity() {
+    PVector v = new PVector(random(-1,1),random(-1,1));
+    v.setMag(1);
+    return v;
   }
-
-  void run() {
-    update();
-  }
-
  
   // Method to update location
   void update() {
     PVector nextPos = new PVector (location.x, location.y);
-    nextPos.add(direction);
+    nextPos.add(velocity);
 
-    nextPos.x = (nextPos.x + width) % width;
-    nextPos.y = (nextPos.y + height) % height;
+    nextPos.x = (nextPos.x + MAP_WIDTH) % MAP_WIDTH;
+    nextPos.y = (nextPos.y + MAP_HEIGHT) % MAP_HEIGHT;
+    
+    action = false;
 
-    color col = foodMap.get((int) nextPos.x, (int) nextPos.y);
-
-    if(brightness(col) < 255){
+    if(thereIsWoodAt(nextPos)){
         if(carriesFood){
           // try to drop food
           carriesFood = !dropFood(location);
+          if(!carriesFood){
+            action = true;
+          }
         } else {
           // pick up food
           carriesFood = pickUpFood(nextPos);
+          action = true;
         }
-        action = true;
-        direction = pickRandomDirection();
+        
+        location.x -= velocity.x;
+        location.y -= velocity.y;
+        velocity = pickRandomVelocity();
+        
     } else{
-      action = false;
       location = nextPos;  
     }
-
   }
 
   Boolean pickUpFood(PVector location) {
-    foodMap.stroke(255);
-    foodMap.strokeWeight(1);
-    foodMap.point((int) location.x, (int) location.y);
+    woodMap.stroke(255);
+    woodMap.strokeWeight(1);
+    woodMap.point((int) location.x, (int) location.y);
+
     return true;
   }
   
   Boolean dropFood(PVector location) {
-    color col = foodMap.get((int) location.x, (int) location.y);
-    if(brightness(col) < 255){
+    location.x = (location.x + MAP_WIDTH) % MAP_WIDTH;
+    location.y = (location.y + MAP_HEIGHT) % MAP_HEIGHT;
+    if(thereIsWoodAt(location)){
       // there is food already here!
-      return false; 
+      return false ;
     } else {
-      foodMap.stroke(0);
-      foodMap.strokeWeight(1);
-      foodMap.point((int) location.x, (int) location.y);
+      woodMap.stroke(0);
+      woodMap.strokeWeight(1);
+      woodMap.point((int) location.x, (int) location.y);
       return true;  
     }
     
   }
 
+  Boolean thereIsWoodAt(PVector location){
+    return brightness(woodMap.get((int) location.x, (int) location.y))<255;
+  }
+
   void draw() {
     strokeWeight(1); 
     if(action){
-      stroke(255,128,0);  
+      stroke(255,50,0);  
     } else {
       if(carriesFood){
-        stroke(100); 
+        stroke(50); 
       } else {
         stroke(200); 
       } 
