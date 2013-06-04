@@ -30,7 +30,7 @@ void setup() {
 
   initControls();
   size(MAP_WIDTH*SCALE, MAP_HEIGHT*SCALE);
-  frameRate(10);
+  frameRate(200);
 
   // Add an initial set of termites into the system
   int NUM_TERMITES = MAP_WIDTH*MAP_HEIGHT/20;

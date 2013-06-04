@@ -16,7 +16,8 @@ import eu.stefaner.insectsmarts.*;
 ControlP5 cp5;
 
 int NUM_ANTS = 250;
-int NEIGHBOR_DIST = 0;
+int NEIGHBOR_DIST = 30;
+boolean TRAILS = false;
 
 PImage antImage;
 ArrayList<Ant> ants = new ArrayList<Ant>(); // An ArrayList for all the ants
@@ -32,16 +33,21 @@ void setup() {
 
   antImage = loadImage("ant.png");
   imageMode(CENTER);
+
+  background(.2, .1, .95);
 }
 
 void draw() {
-  // clear screen
-  // background(.2, .1, .95);
-  
-  // OR: 
-  fill(.2, .1, .95, .01);
-  rect(0,0,width, height);
 
+  if(TRAILS){
+    // clear screen, but leave traces from last time
+    fill(.2, .1, .95, .02);
+    rect(0,0,width, height);
+  } else {
+    // clear screen
+    background(.2, .1, .95);
+  }
+  
   while (ants.size()<NUM_ANTS){
     ants.add(new Ant(random(width),random(height)));
   }
@@ -73,24 +79,43 @@ void initControls() {
   int rowHeight = 30;
   int x = width - colWidth - 10;
 
-  cp5.addButton("save", 1, x + textColWidth, 10, (colWidth-textColWidth)/2-5, 20);
-  cp5.addButton("post", 1, x + textColWidth + (colWidth-textColWidth)/2 + 5, 10, (colWidth-textColWidth)/2-5, 20);
+  cp5.addButton("save", 1, x, 10, (colWidth-textColWidth)/2-5, 20);
+  cp5.addButton("post", 1, x + (colWidth-textColWidth)/2 + 5, 10, (colWidth-textColWidth)/2-5, 20);
 
-  counter++;
-  cp5.addTextlabel("label" + counter).setText("NEIGHBOR_DIST").setPosition(x, counter*rowHeight + 16).setColor(color(0, 0, .3));
-  cp5.addSlider("NEIGHBOR_DIST", 0, 100, NEIGHBOR_DIST, x+textColWidth, counter*rowHeight + 10, colWidth-textColWidth, 20);
+  cp5.addSlider("NEIGHBOR_DIST")
+    .setRange(0, 100)
+    .setValue(NEIGHBOR_DIST)
+    .setPosition(x, (++counter)*rowHeight + 10)
+    .setSize(colWidth-textColWidth, 20)
+    .setColorLabel(color(.2));
 
-  counter++;
-  cp5.addTextlabel("label" + counter).setText("NUM_ANTS").setPosition(x, counter*rowHeight + 16).setColor(color(0, 0, .3));
-  cp5.addSlider("NUM_ANTS", 10, 400, NUM_ANTS, x+textColWidth, counter*rowHeight + 10, colWidth-textColWidth, 20);
+  cp5.addSlider("NUM_ANTS")
+    .setRange(10, 300)
+    .setValue(NUM_ANTS)
+    .setPosition(x, (++counter)*rowHeight + 10)
+    .setSize(colWidth-textColWidth, 20)
+    .setColorLabel(color(.2));
 
-  counter++;
-  cp5.addTextlabel("label" + counter).setText("MAX_FORCE").setPosition(x, counter*rowHeight + 16).setColor(color(0, 0, .3));
-  cp5.addSlider("MAX_FORCE", 0, 20, MAX_FORCE, x+textColWidth, counter*rowHeight + 10, colWidth-textColWidth, 20);
+  cp5.addSlider("MAX_FORCE")
+    .setRange(0, 20)
+    .setValue(MAX_FORCE)
+    .setPosition(x, (++counter)*rowHeight + 10)
+    .setSize(colWidth-textColWidth, 20)
+    .setColorLabel(color(.2));
 
-  counter++;
-  cp5.addTextlabel("label" + counter).setText("LOOK_ANGLE").setPosition(x, counter*rowHeight + 16).setColor(color(0, 0, .3));
-  cp5.addSlider("LOOK_ANGLE", 0, 1, LOOK_ANGLE, x+textColWidth, counter*rowHeight + 10, colWidth-textColWidth, 20);
+  cp5.addSlider("LOOK_ANGLE")
+    .setRange(0, .5)
+    .setValue(LOOK_ANGLE)
+    .setPosition(x, (++counter)*rowHeight + 10)
+    .setSize(colWidth-textColWidth, 20)
+    .setColorLabel(color(.2));
+
+  cp5.addToggle("TRAILS")
+     .setPosition(x,(++counter)*rowHeight + 16)
+     .setSize(20,20)
+     .setValue(TRAILS)
+     .setColorLabel(color(.2))
+    ;
 }
 
 // save image

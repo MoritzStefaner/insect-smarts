@@ -74,28 +74,60 @@ void initControls() {
   cp5.addButton("save", 1, x, 10, colWidth/2-5, 20);
   cp5.addButton("post", 1, x + colWidth/2 + 5, 10, colWidth/2-5, 20);
 
-  counter++;
-  cp5.addSlider("MAX_FORCE", 0, 1, MAX_FORCE, x, counter*rowHeight + 10, colWidth-textColWidth, 20).setColorLabel(color(.2));
+  cp5.addSlider("MAX_FORCE")
+    .setRange(0, 1)
+    .setValue(MAX_FORCE)
+    .setPosition(x, (++counter)*rowHeight + 10)
+    .setSize(colWidth-textColWidth, 20)
+    .setColorLabel(color(.2));
 
-  counter++;
-  cp5.addSlider("MAX_SPEED", 1, 10, MAX_SPEED, x, counter*rowHeight + 10, colWidth-textColWidth, 20).setColorLabel(color(.2));
+  cp5.addSlider("MAX_SPEED")
+    .setRange(1, 10)
+    .setValue(MAX_SPEED)
+    .setPosition(x, (++counter)*rowHeight + 10)
+    .setSize(colWidth-textColWidth, 20)
+    .setColorLabel(color(.2));
 
-  counter++;
-  cp5.addSlider("TRAIL_LENGTH", 0, 400, TRAIL_LENGTH, x, 100, colWidth-textColWidth, 20).setColorLabel(color(.2));
+  cp5.addSlider("TRAIL_LENGTH")
+    .setRange(0, 400)
+    .setValue(TRAIL_LENGTH)
+    .setPosition(x, (++counter)*rowHeight + 10)
+    .setSize(colWidth-textColWidth, 20)
+    .setColorLabel(color(.2));
 
-  counter++;
-  cp5.addSlider("SEPARATION", 0, 1, SEPARATION, x, counter*rowHeight + 10, colWidth-textColWidth, 20).setColorLabel(color(.2));
+  cp5.addSlider("SEPARATION")
+    .setRange(0, 1)
+    .setValue(SEPARATION)
+    .setPosition(x, (++counter)*rowHeight + 10)
+    .setSize(colWidth-textColWidth, 20)
+    .setColorLabel(color(.2));
 
-  counter++;
-  cp5.addSlider("COHESION", 0, 1, COHESION, x, counter*rowHeight + 10, colWidth-textColWidth, 20).setColorLabel(color(.2));
+  cp5.addSlider("COHESION")
+    .setRange(0, 1)
+    .setValue(COHESION)
+    .setPosition(x, (++counter)*rowHeight + 10)
+    .setSize(colWidth-textColWidth, 20)
+    .setColorLabel(color(.2));
 
-  counter++;
-  cp5.addSlider("ALIGNMENT", 0, 1, ALIGNMENT, x, counter*rowHeight + 10, colWidth-textColWidth, 20).setColorLabel(color(.2));
+    cp5.addSlider("ALIGNMENT")
+    .setRange(0, 1)
+    .setValue(ALIGNMENT)
+    .setPosition(x, (++counter)*rowHeight + 10)
+    .setSize(colWidth-textColWidth, 20)
+    .setColorLabel(color(.2));
 
-  counter++;
-  cp5.addSlider("NUM_BOIDS", 1, 200, NUM_BOIDS, x, counter*rowHeight + 10, colWidth-textColWidth, 20).setColorLabel(color(.2));
+    cp5.addSlider("NUM_BOIDS")
+    .setRange(10, 200)
+    .setValue(NUM_BOIDS)
+    .setPosition(x, (++counter)*rowHeight + 10)
+    .setSize(colWidth-textColWidth, 20)
+    .setColorLabel(color(.2));
 
-  counter++;
-  cp5.addSlider("NEIGHBOR_DIST", 10, 100, NEIGHBOR_DIST, x, counter*rowHeight + 10, colWidth-textColWidth, 20).setColorLabel(color(.2));
+    cp5.addSlider("NEIGHBOR_DIST")
+    .setRange(10, 100)
+    .setValue(NEIGHBOR_DIST)
+    .setPosition(x, (++counter)*rowHeight + 10)
+    .setSize(colWidth-textColWidth, 20)
+    .setColorLabel(color(.2));
 }
 

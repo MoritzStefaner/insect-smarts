@@ -19,8 +19,9 @@ ControlP5 cp5;
 ParticleSystem physics;
 
 int NUM_PARTICLES = 500;
-PImage blurredCircle;
+float STRENGTH = 1;
 
+PImage blurredCircle;
 Particle mouseParticle;
 
 void setup() {
@@ -55,8 +56,6 @@ void makeSpring(Particle a, Particle b) {
   physics.makeSpring( a, b, .5, 0.5, 50 );
 }
 
-float counter=0;
-
 void draw() {
   physics.tick();
   imageMode( CENTER );
@@ -65,7 +64,7 @@ void draw() {
 
   background(0);
 
-  if (counter<200) counter+=.1;
+  //if (STRENGTH<200) STRENGTH+=.1;
 
   mouseParticle.position().set((float)mouseX, (float)mouseY, 0);
 
@@ -80,7 +79,7 @@ void draw() {
     toCenter.y = height/2 - y;
     float dist = toCenter.mag();
     toCenter.normalize();
-    toCenter.mult(Math.min(dist, counter * dist * .0005));
+    toCenter.mult(Math.min(dist, STRENGTH * dist * .0005));
     p.position().add(toCenter.x, toCenter.y, 0);
   }
 
@@ -88,14 +87,16 @@ void draw() {
     p = physics.getParticle(i);
     image(blurredCircle, p.position().x(), p.position().y());
   }
+  blendMode(NORMAL);
 }
 
 // --------------------------------------------------------------
 
 void initControls() {
   cp5 = new ControlP5(this);
-  cp5.addButton("save", 1, width - 35, 10, 30, 20);
-  cp5.addButton("post", 1, width - 35, 35, 30, 20);
+  cp5.addButton("save", 1, width - 105, 15, 45, 20);
+  cp5.addButton("post", 1, width - 55, 15, 45, 20);
+  cp5.addSlider("STRENGTH", 1, 200, STRENGTH, width - 105, 45, 45, 20);
 }
 
 void save() {

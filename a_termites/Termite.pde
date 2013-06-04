@@ -12,9 +12,21 @@ class Termite {
   }
 
   PVector pickRandomVelocity() {
+    /*
     PVector v = new PVector(random(-1,1),random(-1,1));
     v.setMag(1);
     return v;
+    */
+    switch((int)random(4)){
+      case 0:
+        return new PVector(1,0);
+      case 1:
+        return new PVector(-1,0);
+      case 2:
+        return new PVector(0,1);
+    }
+    return new PVector(0,-1);
+    
   }
  
   // Method to update location
@@ -43,7 +55,6 @@ class Termite {
         location.x -= velocity.x;
         location.y -= velocity.y;
         velocity = pickRandomVelocity();
-        
     } else{
       location = nextPos;  
     }

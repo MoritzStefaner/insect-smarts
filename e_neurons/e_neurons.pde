@@ -72,14 +72,26 @@ void initControls() {
   cp5.addButton("save", 1, x, 10, (colWidth-textColWidth)/2-5, 20);
   cp5.addButton("post", 1, x + (colWidth-textColWidth)/2 + 5, 10, (colWidth-textColWidth)/2-5, 20);
 
-  counter++;
-  cp5.addSlider("DECAY", 0, .1, DECAY, x, counter*rowHeight + 10, colWidth-textColWidth, 20);
+  cp5.addSlider("DECAY")
+    .setRange(0, .1)
+    .setValue(DECAY)
+    .setPosition(x, (++counter)*rowHeight + 10)
+    .setSize(colWidth-textColWidth, 20)
+    .setColorLabel(color(.8));
 
-  counter++;
-  cp5.addSlider("RANDOM_FIRE", 0, 1, RANDOM_FIRE, x, counter*rowHeight + 10, colWidth-textColWidth, 20);
+  cp5.addSlider("RANDOM_FIRE")
+    .setRange(0, 1)
+    .setValue(DECAY)
+    .setPosition(x, (++counter)*rowHeight + 10)
+    .setSize(colWidth-textColWidth, 20)
+    .setColorLabel(color(.8));
 
-  counter++;
-  cp5.addSlider("AXON_SPEED", .0001, .001, AXON_SPEED, x, counter*rowHeight + 10, colWidth-textColWidth, 20);
+  cp5.addSlider("AXON_SPEED")
+    .setRange(.0001, .001)
+    .setValue(AXON_SPEED)
+    .setPosition(x, (++counter)*rowHeight + 10)
+    .setSize(colWidth-textColWidth, 20)
+    .setColorLabel(color(.8));
 }
 
 
