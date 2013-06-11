@@ -3,7 +3,7 @@ class Termite {
 
   PVector location;
   PVector velocity;
-  Boolean carriesFood = false;
+  Boolean carriesWood = false;
   Boolean action = false;
 
   Termite() {
@@ -40,15 +40,15 @@ class Termite {
     action = false;
 
     if(thereIsWoodAt(nextPos)){
-        if(carriesFood){
+        if(carriesWood){
           // try to drop food
-          carriesFood = !dropFood(location);
-          if(!carriesFood){
+          carriesWood = !dropWood(location);
+          if(!carriesWood){
             action = true;
           }
         } else {
           // pick up food
-          carriesFood = pickUpFood(nextPos);
+          carriesWood = pickUpWood(nextPos);
           action = true;
         }
         
@@ -60,7 +60,7 @@ class Termite {
     }
   }
 
-  Boolean pickUpFood(PVector location) {
+  Boolean pickUpWood(PVector location) {
     woodMap.stroke(255);
     woodMap.strokeWeight(1);
     woodMap.point((int) location.x, (int) location.y);
@@ -68,7 +68,7 @@ class Termite {
     return true;
   }
   
-  Boolean dropFood(PVector location) {
+  Boolean dropWood(PVector location) {
     location.x = (location.x + MAP_WIDTH) % MAP_WIDTH;
     location.y = (location.y + MAP_HEIGHT) % MAP_HEIGHT;
     if(thereIsWoodAt(location)){
@@ -84,7 +84,7 @@ class Termite {
   }
 
   Boolean thereIsWoodAt(PVector location){
-    return brightness(woodMap.get((int) location.x, (int) location.y))<255;
+    return brightness(woodMap.get((int) location.x, (int) location.y)) < 255;
   }
 
   void draw() {
@@ -92,7 +92,7 @@ class Termite {
     if(action){
       stroke(255,50,0);  
     } else {
-      if(carriesFood){
+      if(carriesWood){
         stroke(50); 
       } else {
         stroke(200); 
