@@ -10,7 +10,7 @@ import com.tumblr.jumblr.types.PhotoPost;
 
 public class ImageSaver {
 	private static JumblrClient client;
-	public static String event = "Insect Smarts / eyeo 2013";
+	public static String event = "Insect Smarts Workshop / resonate 2015";
 	public static String userName = "someone";
 
 	/*
@@ -27,16 +27,16 @@ public class ImageSaver {
 		  try {
 		    PhotoPost pp = new PhotoPost();
 		    pp.setClient(client);
-		    pp.setBlogName("insect-smarts");  
+		    pp.setBlogName("insect-smarts");
 		    pp.setData(new File(sketchPath("diagonal.jpg")));
 		    pp.setCaption("Caption goes here");
 		    pp.save();
-		  } 
+		  }
 		  catch (IOException e) {
 		  }
 	*/
 	{
-		
+
 	}
 
 	public static String save(PApplet p) {
@@ -47,18 +47,18 @@ public class ImageSaver {
 	}
 
 	public static void saveAndPost(PApplet p) {
-		
+
 		try {
 			if(client == null){
 				client = new JumblrClient("cPq3G0ZmmMsNdkOPrtKJenMJTQqd6WTIikG2EQRKISVLzLfbTj", "ilpS2Y0N7FFJkrp4czwu791BYE8lxpCmcjX6H9q9VV5fiHgKTO");
 				client.setToken("ChmgQIRqXXGelIMAqsNxIQEwgi0sCqYiA5yaZMSaeAGmzAIQPC", "3iwMO8la57AgRN3xyuMvSflBjYQ7xK5dolJgDJvWsl94gJdjx0");
 			}
-			
+
 			String path = save(p);
-			
+
 			PhotoPost pp = new PhotoPost();
 			pp.setClient(client);
-			pp.setBlogName("insect-smarts");	
+			pp.setBlogName("insect-smarts");
 			pp.setData(new File(p.sketchPath(path)));
 			pp.setCaption("Created by " + userName + " at " + " "+ event + " " +getTimeStamp(p));
 			pp.save();
