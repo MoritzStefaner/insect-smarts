@@ -93,17 +93,23 @@ class Boid {
     // draw history
     PVector lastLoc = location;
     float decay;
+    int col2 = color(190/360f, 98/100f, 89/100f);
+    int col1 = color(270/360f, 70/100f, 49/100f);
     for (int i=history.size()-1; i>=0; i--){
       PVector p = history.get(i);
       decay = float(i)/TRAIL_LENGTH;
       if(Math.abs(lastLoc.x-p.x)<=width-20 && Math.abs(lastLoc.y-p.y)<=height-20) {
-        stroke(.2+decay*.5, .8, .5, decay/2);
-        strokeWeight(2 * decay);
+        
+        int mixedCol = color(hue(col1)*decay + hue(col2)*(1-decay), saturation(col1)*decay + saturation(col2)*(1-decay), brightness(col1)*decay + brightness(col2)*(1-decay), .5f);
+
+        stroke(mixedCol);
+
+        strokeWeight(2 * (float)Math.sqrt(decay));
         line(lastLoc.x, lastLoc.y, p.x, p.y);  
       }
       lastLoc = p;
     }
-
+/*
     r = 2*velocity.mag()/MAX_SPEED;
 
     // Draw a triangle rotated in the direction of velocity
@@ -120,7 +126,7 @@ class Boid {
     vertex(r, r*2);
     endShape();
     popMatrix();
-
+*/
     
   }
 

@@ -44,7 +44,7 @@ void initSimulation() {
 }
 
 void draw() {
-  background(.2, .1, .97);
+  background(1, 0, 1);
   flock.run();
 }
 
