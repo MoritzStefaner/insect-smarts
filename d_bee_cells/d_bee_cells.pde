@@ -104,4 +104,3 @@ void save() {
 void post() {
   ImageSaver.saveAndPost(this);
 }
-
