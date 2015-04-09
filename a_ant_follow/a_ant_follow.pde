@@ -1,13 +1,14 @@
-/* 
- 
- I-N°S.E-C:T 
+/*
+
+ I-N°S.E-C:T
  S.M-A°R:T.S
- 
- Moritz Stefaner (moritz@stefaner.eu), May 2013
+
+ Moritz Stefaner (moritz@stefaner.eu)
+ Dominikus Baur (do@minik.us)
  https://github.com/MoritzStefaner/insect-smarts
- 
+
  based on code from http://natureofcode.com
- 
+
  */
 
 import controlP5.*;
@@ -47,14 +48,14 @@ void draw() {
     // clear screen
     background(.2, .1, .95);
   }
-  
+
   while (ants.size()<NUM_ANTS){
     ants.add(new Ant(random(width),random(height)));
   }
 
   while (ants.size()>NUM_ANTS){
     ants.remove(0);
-  } 
+  }
 
   for (Ant b : ants) {
     b.run(ants);  // Passing the entire list of ants to each boid individually

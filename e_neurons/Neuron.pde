@@ -1,12 +1,23 @@
+/*
+
+ I-N°S.E-C:T
+ S.M-A°R:T.S
+
+ Moritz Stefaner (moritz@stefaner.eu)
+ Dominikus Baur (do@minik.us)
+ https://github.com/MoritzStefaner/insect-smarts
+
+*/
+
 float RANDOM_FIRE = .01;
 float DECAY = .03;
 
 class Neuron{
 	int x;
 	int y;
-	float activation; 
+	float activation;
 	ArrayList<Axon> outgoingAxons;
-	
+
 	Neuron (){
 		x = (int) random(width);
 		y = (int) random(height);

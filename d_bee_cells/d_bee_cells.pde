@@ -1,15 +1,13 @@
-/* 
- 
- I-N°S.E-C:T 
- S.M-A°R:T.S
- 
- Moritz Stefaner (moritz@stefaner.eu), May 2013
- https://github.com/MoritzStefaner/insect-smarts
- 
- based on http://natureofcode.com
- 
- */
+/*
 
+ I-N°S.E-C:T
+ S.M-A°R:T.S
+
+ Moritz Stefaner (moritz@stefaner.eu)
+ Dominikus Baur (do@minik.us)
+ https://github.com/MoritzStefaner/insect-smarts
+
+*/
 import eu.stefaner.insectsmarts.*;
 import controlP5.*;
 import traer.physics.*;
@@ -41,7 +39,7 @@ void setup() {
   mouseParticle = physics.makeParticle(100.0, 0, 0, 0);
 
   for (int i=0; i<NUM_PARTICLES; i++) {
-    physics.makeAttraction(mouseParticle, physics.getParticle(i), -1, 10);  
+    physics.makeAttraction(mouseParticle, physics.getParticle(i), -1, 10);
     for (int j=0; j<NUM_PARTICLES; j++) {
       if (i!=j) {
         physics.makeAttraction(physics.getParticle(i), physics.getParticle(j), -.1, 10);

@@ -1,3 +1,14 @@
+/*
+
+ I-N°S.E-C:T
+ S.M-A°R:T.S
+
+ Moritz Stefaner (moritz@stefaner.eu)
+ Dominikus Baur (do@minik.us)
+ https://github.com/MoritzStefaner/insect-smarts
+
+*/
+
 import traer.physics.*;
 
 ParticleSystem physics;
@@ -14,14 +25,14 @@ void setup()
   ellipseMode( CENTER );
 
   physics = new ParticleSystem( 0, 0.1 );
-  
+
   for (int i=0; i<NUM_RINGS; i++) {
     makeRing();
   }
 
   Particle p1;
   Particle p2;
-  
+
   for (int i=0; i<centers.size(); i++) {
     for (int j=i+1; j<centers.size(); j++) {
       p1 = (Particle) centers.get(i);
@@ -54,18 +65,18 @@ void makeRing()
 {
   Particle center  = physics.makeParticle(100.0, random(width), random(height), 0);
   centers.add(center);
-  
+
   Particle firstParticle = null;
   Particle previousParticle = null;
   Particle p = null;
-  
+
   for (int i=0; i<NUM_SEGMENTS; i++) {
-    
+
     // mass, x, y, z
     p = physics.makeParticle(2.0, random(width), random(height), 0);
     if (i==0) {
       firstParticle = p;
-    } 
+    }
     else {
       makeSpring( p, previousParticle);
     }
@@ -88,24 +99,24 @@ void draw()
   background( 0 );
   fill(200);
   stroke(200);
-  
+
   Particle p;
   for (int i=0; i<centers.size(); i++) {
     p = (Particle)centers.get(i);
     float x = p.position().x();
     x += (width/2 - x)*.1;
     float y = p.position().y();
-    y += (height/2 - y)*.1; 
+    y += (height/2 - y)*.1;
     p.position().set(x,y,0);
   }
-  
-  
+
+
 
   for (int i=0; i<physics.numberOfParticles(); i++) {
     p = physics.getParticle(i);
     ellipse( p.position().x(), p.position().y(), 5, 5 );
   }
-  
+
 
   Spring s;
   Particle p1;

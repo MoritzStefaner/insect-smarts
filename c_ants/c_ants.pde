@@ -1,14 +1,13 @@
-/* 
- 
- I-N°S.E-C:T 
+/*
+
+ I-N°S.E-C:T
  S.M-A°R:T.S
- 
- Moritz Stefaner (moritz@stefaner.eu), May 2013
+
+ Moritz Stefaner (moritz@stefaner.eu)
+ Dominikus Baur (do@minik.us)
  https://github.com/MoritzStefaner/insect-smarts
- 
- based on http://natureofcode.com
- 
- */
+
+*/
 
 import eu.stefaner.insectsmarts.*;
 import controlP5.*;
@@ -39,10 +38,10 @@ void setup() {
   // create extra graphics object to store food
   foodMap = createGraphics(width, height);
   foodMap.beginDraw();
-  foodMap.background(255);  
+  foodMap.background(255);
   foodMap.smooth(4);
 
-  float foodProbability = .35;
+  float foodProbability = .25;
   for (int i=0; i < width; i++) {
     for (int j=0; j < height; j++) {
       float randomValue = noise(i*.01, j*.01);
@@ -50,7 +49,7 @@ void setup() {
         foodMap.stroke(5 * int(randomValue * 10));
         foodMap.point(i, j);
       }
-    }  
+    }
     foodMap.endDraw();
   }
 
@@ -76,7 +75,7 @@ void mouseDragged() {
 
 void draw() {
   blendMode(NORMAL);
-  background(255, 240, 220);
+  background(255, 255, 255);
 
   blendMode(MULTIPLY);
   image(foodMap, 0, 0);
@@ -87,7 +86,7 @@ void draw() {
   pheroMap.beginDraw();
 
   // fade out pheroMap
-  pheroMap.fill(255, 255, 255, 1);
+  pheroMap.fill(255, 255, 255, 3);
   pheroMap.rect(0, 0, width, height);
 
   foodMap.beginDraw();
@@ -125,4 +124,3 @@ void save() {
 void post() {
   ImageSaver.saveAndPost(this);
 }
-

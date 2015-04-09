@@ -1,13 +1,13 @@
-/* 
- 
- I-N°S.E-C:T 
+/*
+
+ I-N°S.E-C:T
  S.M-A°R:T.S
- 
- Moritz Stefaner (moritz@stefaner.eu), May 2013
+
+ Moritz Stefaner (moritz@stefaner.eu)
+ Dominikus Baur (do@minik.us)
  https://github.com/MoritzStefaner/insect-smarts
- 
- based on http://natureofcode.com
- */
+
+*/
 
 import eu.stefaner.insectsmarts.*;
 import controlP5.*;

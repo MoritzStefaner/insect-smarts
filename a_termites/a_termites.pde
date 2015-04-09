@@ -1,11 +1,12 @@
-/* 
- 
- I-N°S.E-C:T 
+/*
+
+ I-N°S.E-C:T
  S.M-A°R:T.S
- 
- Moritz Stefaner (moritz@stefaner.eu), May 2013
+
+ Moritz Stefaner (moritz@stefaner.eu)
+ Dominikus Baur (do@minik.us)
  https://github.com/MoritzStefaner/insect-smarts
- 
+
  */
 
 import controlP5.*;
@@ -55,14 +56,14 @@ void setup() {
       if (random(1)<woodProbability) {
         woodMap.point(i, j);
       }
-    }  
+    }
     woodMap.endDraw();
   }
 }
 
 void draw() {
   background(255);
-  
+
   pushMatrix();
   scale(SCALE);
   noSmooth();

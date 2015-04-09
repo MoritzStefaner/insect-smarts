@@ -9,7 +9,7 @@
 
 class Flock {
   ArrayList<Boid> boids; // An ArrayList for all the boids
-  
+
   Flock() {
     boids = new ArrayList<Boid>(); // Initialize the ArrayList
   }
@@ -33,3 +33,4 @@ class Flock {
     boids.add(b);
   }
 }
+

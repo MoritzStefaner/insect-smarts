@@ -1,14 +1,25 @@
+/*
+
+ I-N°S.E-C:T
+ S.M-A°R:T.S
+
+ Moritz Stefaner (moritz@stefaner.eu)
+ Dominikus Baur (do@minik.us)
+ https://github.com/MoritzStefaner/insect-smarts
+
+*/
+
 float AXON_SPEED = .0005;
 
 class Axon{
 	Neuron source;
 	Neuron target;
-	float strength; 
-	float length; 
+	float strength;
+	float length;
 
 	Boolean isFiring = false;
-	float fireProgress = 0; 
-	
+	float fireProgress = 0;
+
 	Axon (Neuron s, Neuron t){
 		source = s;
 		target = t;

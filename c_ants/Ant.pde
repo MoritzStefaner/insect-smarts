@@ -1,14 +1,13 @@
-/* 
-  
-  I-N°S.E-C:T 
-  S.M-A°R:T.S
+/*
 
-  Moritz Stefaner (moritz@stefaner.eu), May 2013
-  https://github.com/MoritzStefaner/insect-smarts
+ I-N°S.E-C:T
+ S.M-A°R:T.S
 
-  based on http://natureofcode.com
+ Moritz Stefaner (moritz@stefaner.eu)
+ Dominikus Baur (do@minik.us)
+ https://github.com/MoritzStefaner/insect-smarts
 
- */
+*/
 
 class Ant {
 
@@ -49,7 +48,7 @@ class Ant {
       PVector testDirection = new PVector((float) Math.cos(angle), (float) Math.sin(angle));
       color col = pheroMap.get((int) (location.x+testDirection.x + width) % width, (int) (location.y + testDirection.y + height) % height );
       pheroTest = (int) brightness(col);
-      
+
       if( pheroTest < bestPhero){
           newDirection = testDirection;
           bestPhero = pheroTest;
@@ -70,7 +69,7 @@ class Ant {
   Boolean isAtHome() {
     return new PVector(location.x-home.x, location.y-home.y).mag()<10;
   }
- 
+
   // Method to update location
   void update() {
 
@@ -96,7 +95,7 @@ class Ant {
 
     nextPos.x = (nextPos.x + width) % width;
     nextPos.y = (nextPos.y + height) % height;
-    
+
     color col = foodMap.get((int) nextPos.x, (int) nextPos.y);
 
     if(brightness(col) < 255 && !carriesFood){
@@ -129,26 +128,26 @@ class Ant {
     pheroPower = (int) (new PVector(home.x - location.x, home.y - location.y).mag());
     return true;
   }
-  
+
   Boolean dropFood(PVector location) {
     carriesFood = false;
     return true;
   }
 
-  void render() {    
+  void render() {
     if(action){
       // draw a bigger red circle for actions
-      stroke(255,0,0);  
-      strokeWeight(2); 
+      stroke(255,0,0);
+      strokeWeight(2);
     } else {
       stroke(0);
       if(carriesFood){
         // draw bigger when carrying food
-        strokeWeight(3);  
+        strokeWeight(3);
       } else {
         // default
-        strokeWeight(2);  
-      } 
+        strokeWeight(2);
+      }
     }
     point(location.x, location.y);
   }

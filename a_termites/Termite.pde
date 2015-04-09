@@ -1,3 +1,13 @@
+/*
+
+ I-N°S.E-C:T
+ S.M-A°R:T.S
+
+ Moritz Stefaner (moritz@stefaner.eu)
+ Dominikus Baur (do@minik.us)
+ https://github.com/MoritzStefaner/insect-smarts
+
+ */
 
 class Termite {
 
@@ -26,9 +36,9 @@ class Termite {
         return new PVector(0,1);
     }
     return new PVector(0,-1);
-    
+
   }
- 
+
   // Method to update location
   void update() {
     PVector nextPos = new PVector (location.x, location.y);
@@ -36,7 +46,7 @@ class Termite {
 
     nextPos.x = (nextPos.x + MAP_WIDTH) % MAP_WIDTH;
     nextPos.y = (nextPos.y + MAP_HEIGHT) % MAP_HEIGHT;
-    
+
     action = false;
 
     if(thereIsWoodAt(nextPos)){
@@ -51,12 +61,12 @@ class Termite {
           carriesWood = pickUpWood(nextPos);
           action = true;
         }
-        
+
         location.x -= velocity.x;
         location.y -= velocity.y;
         velocity = pickRandomVelocity();
     } else{
-      location = nextPos;  
+      location = nextPos;
     }
   }
 
@@ -67,7 +77,7 @@ class Termite {
 
     return true;
   }
-  
+
   Boolean dropWood(PVector location) {
     location.x = (location.x + MAP_WIDTH) % MAP_WIDTH;
     location.y = (location.y + MAP_HEIGHT) % MAP_HEIGHT;
@@ -78,9 +88,9 @@ class Termite {
       woodMap.stroke(0);
       woodMap.strokeWeight(1);
       woodMap.point((int) location.x, (int) location.y);
-      return true;  
+      return true;
     }
-    
+
   }
 
   Boolean thereIsWoodAt(PVector location){
@@ -88,15 +98,15 @@ class Termite {
   }
 
   void draw() {
-    strokeWeight(1); 
+    strokeWeight(1);
     if(action){
-      stroke(255,50,0);  
+      stroke(255,50,0);
     } else {
       if(carriesWood){
-        stroke(50); 
+        stroke(50);
       } else {
-        stroke(200); 
-      } 
+        stroke(200);
+      }
     }
     point(location.x, location.y);
   }
