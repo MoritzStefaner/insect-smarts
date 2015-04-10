@@ -15,13 +15,21 @@ class Termite {
   PVector velocity;
   Boolean carriesWood = false;
   Boolean action = false;
+  float woodAge = 0;
+  
+  // states:
+  // 0 - looking for wood
+  // 1 - carrying wood, looking for pile
+  // 2 - carrying wood, found pile, trying to drop it
+  // 3 - fleeing from pile
+  int state = 0;
 
   Termite() {
     location = new PVector((int) random(MAP_WIDTH),(int) random(MAP_HEIGHT));
-    velocity = pickRandomVelocity();
+    velocity = pickRandomVelocity(1);
   }
 
-  PVector pickRandomVelocity() {
+  PVector pickRandomVelocity(int l) {
     /*
     PVector v = new PVector(random(-1,1),random(-1,1));
     v.setMag(1);
@@ -29,48 +37,67 @@ class Termite {
     */
     switch((int)random(4)){
       case 0:
-        return new PVector(1,0);
+        return new PVector(l,0);
       case 1:
-        return new PVector(-1,0);
+        return new PVector(-l,0);
       case 2:
-        return new PVector(0,1);
+        return new PVector(0,l);
     }
-    return new PVector(0,-1);
+    return new PVector(0,-l);
 
   }
-
-  // Method to update location
-  void update() {
-    PVector nextPos = new PVector (location.x, location.y);
-    nextPos.add(velocity);
-
-    nextPos.x = (nextPos.x + MAP_WIDTH) % MAP_WIDTH;
-    nextPos.y = (nextPos.y + MAP_HEIGHT) % MAP_HEIGHT;
-
-    action = false;
-
-    if(thereIsWoodAt(nextPos)){
-        if(carriesWood){
-          // try to drop food
-          carriesWood = !dropWood(location);
-          if(!carriesWood){
-            action = true;
-          }
+  
+  void update(){
+    // pick new (valid) velocity:
+    velocity = pickRandomVelocity(1);
+    PVector currentPos = new PVector(location.x, location.y);
+    PVector fastVelocity = pickRandomVelocity(5);
+    
+    if(state == 0){
+      // doesn't carry wood - find new one!
+      if(thereIsWoodAt(currentPos)){
+        // pick up
+        carriesWood = pickUpWood(currentPos);
+        // move a good bit
+        currentPos.add(fastVelocity);
+        
+        state = 1;  
+      } else {
+        currentPos.add(velocity);
+      }
+    } else if(state == 1){
+      if(!thereIsWoodAt(currentPos)){
+        // keep on looking
+      } else {
+        // found pile!
+        state = 2;       
+      }
+      currentPos.add(velocity);
+    } else if(state == 2){
+        if(!thereIsWoodAt(currentPos)){
+          dropWood(currentPos);
+          // flee
+          state = 3;
         } else {
-          // pick up food
-          carriesWood = pickUpWood(nextPos);
-          action = true;
+          currentPos.add(velocity);
         }
-
-        location.x -= velocity.x;
-        location.y -= velocity.y;
-        velocity = pickRandomVelocity();
-    } else{
-      location = nextPos;
+    } else if(state == 3){
+      // flee!
+      currentPos.add(fastVelocity);
+      
+      // only stop fleeing once a pile-less location has been reached
+      if(!thereIsWoodAt(currentPos)){
+        state = 0;
+      }
     }
+    location = currentPos;
+
+    location.x = (location.x + MAP_WIDTH) % MAP_WIDTH;
+    location.y = (location.y + MAP_HEIGHT) % MAP_HEIGHT;
   }
 
   Boolean pickUpWood(PVector location) {
+    woodAge = getWoodAge(location);
     woodMap.stroke(255);
     woodMap.strokeWeight(1);
     woodMap.point((int) location.x, (int) location.y);
@@ -85,14 +112,19 @@ class Termite {
       // there is food already here!
       return false ;
     } else {
-      woodMap.stroke(0);
+      woodMap.stroke(woodAge);
       woodMap.strokeWeight(1);
       woodMap.point((int) location.x, (int) location.y);
+      carriesWood = false;
       return true;
     }
 
   }
 
+  float getWoodAge(PVector location){
+    return brightness(woodMap.get((int)location.x, (int)location.y));
+  }
+  
   Boolean thereIsWoodAt(PVector location){
     return brightness(woodMap.get((int) location.x, (int) location.y)) < 255;
   }
