@@ -60,8 +60,10 @@ class SimpleAnt {
 	void render() {
 		pushMatrix();
 		translate(location.x, location.y);
-		// the image is turned 45 degreed
+		// the image is turned 45 degrees
 		rotate(velocity.heading2D() + PI/4);
+                //scale(random(2));
+                //tint(random(1.0f),1,1);
 		image(antImage, 0,0);
 		popMatrix();
 	}
