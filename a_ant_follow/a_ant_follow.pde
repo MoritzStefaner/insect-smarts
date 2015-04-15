@@ -16,7 +16,7 @@ import eu.stefaner.insectsmarts.*;
 
 ControlP5 cp5;
 
-int NUM_ANTS = 250;
+int NUM_ANTS = 100;
 int NEIGHBOR_DIST = 30;
 boolean TRAILS = false;
 
@@ -58,7 +58,7 @@ void draw() {
   }
 
   for (Ant b : ants) {
-    b.run(ants);  // Passing the entire list of ants to each boid individually
+    b.run(ants);  // Passing the entire list of ants to each ant individually
   }
 }
 

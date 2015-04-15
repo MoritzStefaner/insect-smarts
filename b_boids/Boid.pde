@@ -43,6 +43,7 @@ class Boid {
     PVector sep = separate(boids);   // Separation
     PVector ali = align(boids);      // Alignment
     PVector coh = cohesion(boids);   // Cohesion
+    
     // Arbitrarily weight these forces
     sep.mult(SEPARATION);
     ali.mult(ALIGNMENT);
@@ -51,13 +52,20 @@ class Boid {
     applyForce(sep);
     applyForce(ali);
     applyForce(coh);
+    
+    applyForce(attractToMouse());
 
-    avoidMouse();
   }
 
-  void avoidMouse(){
-    PVector wayToMouse = PVector.sub(location,new PVector(mouseX, mouseY));
-        
+  PVector attractToMouse(){
+    PVector mousePos = new PVector(mouseX, mouseY);
+    PVector result = new PVector();
+    if (PVector.dist(location,mousePos)<100){
+      result = seek(mousePos);
+      result.mult(-5);
+    }
+ 
+    return result;
   }
 
   // Method to update location

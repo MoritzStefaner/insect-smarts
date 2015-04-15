@@ -125,7 +125,7 @@ class Ant {
     foodMap.stroke(255);
     foodMap.strokeWeight(3);
     foodMap.point((int) location.x, (int) location.y);
-    pheroPower = (int) (new PVector(home.x - location.x, home.y - location.y).mag());
+    pheroPower = (int) PVector.dist(home, location);
     return true;
   }
 
