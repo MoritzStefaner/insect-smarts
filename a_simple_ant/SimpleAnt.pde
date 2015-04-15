@@ -26,7 +26,6 @@ class SimpleAnt {
 		location = new PVector(x,y);
 		velocity = new PVector(random(-1,1),random(-1,1));
 		acceleration = new PVector(0,0);
-		MAX_SPEED += random(-1, 1);
 	}
 
 	void run() {
